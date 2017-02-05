@@ -117,8 +117,10 @@ void loop()
     
     Console.println("Getting sensor value...");
 
-    // get the value we want to append to our spreadsheet
+    // get a random value we want to append to our spreadsheet
     int sensorValue = random(40);
+    // to get input from A0, use this function instead:
+    //unsigned long sensorValue = getSensorValue();
 
     Console.println("Appending value to spreadsheet...");
 
