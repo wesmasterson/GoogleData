@@ -65,13 +65,13 @@
 // use #define statements to specify these values in a .h file.
 
 // the clientID found in Google's Developer Console under API Manager > Credentials
-const String CLIENT_ID = "970944519729-4alfm97i0hkridq28nnitfasqnl3651p.apps.googleusercontent.com";
+const String CLIENT_ID = "970944519729-b223fr3qc15bpsst7n81t715tm5vetvn.apps.googleusercontent.com";
 
 // the clientSecret found in Google's Developer Console under API Manager > Credentials
-const String CLIENT_SECRET = "pOyarx6JwBw1m9wV8lqLQF3w";
+const String CLIENT_SECRET = "4qyO0imbsCqWuC_vFXhFM9JL";
 
 // returned after running FinalizeOAuth
-const String REFRESH_TOKEN = "1/KN8NiYbCnUDX0llrSiPYJkNrCk3Lh6misZo2st9q9S8";
+const String REFRESH_TOKEN = "1/A6gtnh_zL1uVRleq4RIaO8mXKnLRoJIZVLQ4v64AEZwWB18lmxo8syPBWUgs3BUN";
 
 // The ID of the spreadsheet you want to send data to
 // which can be found in the URL when viewing your spreadsheet at Google. For example, 
@@ -86,21 +86,17 @@ const unsigned long RUN_INTERVAL_MILLIS = 60000; // how often to run the Choreo 
 // Choreo is run immediately when we start up)
 unsigned long lastRun = (unsigned long)-60000;
 
-String myName="Mary L";//Enter your name here
-
 void setup() {
-
-  
   
   // for debugging, wait until a serial console is connected
-  Bridge.begin();  // make contact with the linux processor
-  Console.begin();
   //Serial.begin(9600);
-  delay(4000);
+  //delay(4000);
   //while(!Serial);
-
+  Bridge.begin();
+  while(!Console);
+  
   Console.print("Initializing the bridge...");
-  //Bridge.begin();
+  
   Console.println("Done");
 }
 
@@ -117,9 +113,8 @@ void loop()
     
     Console.println("Getting sensor value...");
 
-    // get a random value we want to append to our spreadsheet
-    int sensorValue = random(40);
-    // to get input from A0, use this function instead:
+    // get the value we want to append to our spreadsheet
+    unsigned long sensorValue=random(400,450);
     //unsigned long sensorValue = getSensorValue();
 
     Console.println("Appending value to spreadsheet...");
@@ -155,7 +150,8 @@ void loop()
     AppendValuesChoreo.addInput("SpreadsheetID", SPREADSHEET_ID);
 
     // convert the time and sensor values to a comma separated string
-    String rowData = "[[\"" + String(now) + "\", \"" + int(sensorValue) + "\", \"" + (myName) +"\"]]";
+    String myName="MaryL";
+    String rowData = "[[\"" + String(now) + "\", \"" + String(sensorValue) + "\", \"" + String(myName) + "\"]]";
 
     // add the RowData input item
     AppendValuesChoreo.addInput("Values", rowData);
